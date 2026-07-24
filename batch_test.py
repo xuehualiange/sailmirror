@@ -14,14 +14,21 @@ API_KEY = os.getenv("ALIYUN_API_KEY")
 MODEL = "qwen3-vl-plus"
 SCRIPT_DIR = Path(__file__).parent
 
-# 5张测试图配置
+# 10张测试图配置
 test_cases = [
     {"id": "TC-001", "file": "TC-001.jpg", "market": "中东（沙特/阿联酋）", "expected": "极高风险-女性着装"},
     {"id": "TC-002", "file": "TC-002.jpg", "market": "中东（沙特/阿联酋）", "expected": "极高风险-宗教符号"},
     {"id": "TC-003", "file": "TC-003.jpg", "market": "中东（沙特/阿联酋）", "expected": "中风险-绿色禁忌"},
     {"id": "TC-004", "file": "TC-004.jpg", "market": "美国（亚马逊）", "expected": "高风险-绝对化用语"},
     {"id": "TC-005", "file": "TC-005.jpg", "market": "日本", "expected": "高风险-颜色禁忌"},
+    {"id": "TC-006", "file": "TC-006.jpg", "market": "中东（沙特/阿联酋）", "expected": "极高风险-佛像图案"},
+    {"id": "TC-007", "file": "TC-007.jpg", "market": "中东（沙特/阿联酋）", "expected": "极高风险-酒类"},
+    {"id": "TC-008", "file": "TC-008.jpg", "market": "中东（沙特/阿联酋）", "expected": "极高风险-猪肉食品"},
+    {"id": "TC-009", "file": "TC-009.jpg", "market": "日本", "expected": "高风险-数字4"},
+    {"id": "TC-010", "file": "TC-010.jpg", "market": "东南亚", "expected": "中风险-OK手势"},
 ]
+
+TOTAL_CASES = len(test_cases)
 
 def build_prompt(market: str) -> str:
     return f"""你是出海镜文化合规检测专家。目标市场：{market}。
@@ -29,8 +36,11 @@ def build_prompt(market: str) -> str:
 严格检测这张商品图片。重点检查：
 1. 人物：女性是否暴露肩膀、手臂、腿部、胸部？
 2. 宗教：有无十字架、佛像、宗教文字用于商业？
-3. 颜色：有无大面积绿色（宗教关联）？白色/黑色包装（日本丧事关联）？
-4. 文字：有无"Best""#1""100%""FDA Approved"等绝对化用语或未经认证声明？
+3. 饮食禁忌：有无酒精、酒瓶、Wine字样、猪肉/猪肉干等清真禁忌食品？
+4. 颜色：有无大面积绿色（宗教关联）？白色/黑色包装（日本丧事关联）？
+5. 数字：有无 prominently 展示数字"4"（日本忌讳）？
+6. 手势：有无 OK 手势（东南亚部分国家冒犯）？
+7. 文字：有无"Best""#1""100%""FDA Approved"等绝对化用语或未经认证声明？
 
 判定标准：
 - 极高风险：必须修改，否则下架/抵制
@@ -144,8 +154,8 @@ print("📊 批量检测汇总报告")
 print("=" * 60)
 
 success_count = sum(1 for r in results if r["status"] == "成功")
-print(f"✅ 成功：{success_count}/5")
-print(f"❌ 失败/跳过：{5 - success_count}/5")
+print(f"✅ 成功：{success_count}/{TOTAL_CASES}")
+print(f"❌ 失败/跳过：{TOTAL_CASES - success_count}/{TOTAL_CASES}")
 
 for r in results:
     emoji = {"成功": "✅", "跳过": "⏭️", "解析失败": "⚠️", "失败": "❌"}.get(r["status"], "❓")
