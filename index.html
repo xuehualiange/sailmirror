@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨规雷达 CompliScan - AI 跨境合规检测</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+            background: #f5f7fa; 
+            min-height: 100vh; 
+            padding: 24px; 
+            color: #1e293b;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Header */
+        .header { text-align: center; margin-bottom: 32px; }
+        .header h1 { font-size: 28px; color: #1a1a2e; margin: 0 0 8px 0; letter-spacing: -0.5px; }
+        .header p { color: #64748b; font-size: 14px; margin: 0; }
+        
+        /* Cards */
+        .card { 
+            background: white; 
+            border-radius: 16px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.03); 
+            border: 1px solid #e2e8f0; 
+        }
+        .card-title { 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: #1e293b; 
+            margin-bottom: 16px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        
+        /* Upload Zone */
+        .upload-zone { 
+            border: 2px dashed #cbd5e1; 
+            border-radius: 12px; 
+            padding: 40px; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            background: #f8fafc; 
+        }
+        .upload-zone:hover { border-color: #3b82f6; background: #eff6ff; }
+        .upload-zone.active { border-color: #3b82f6; background: #eff6ff; }
+        .upload-icon { font-size: 32px; margin-bottom: 8px; }
+        .upload-text { color: #475569; font-size: 14px; }
+        .upload-hint { color: #94a3b8; font-size: 12px; margin-top: 4px; }
+        .preview-img { 
+            max-width: 100%; 
+            max-height: 200px; 
+            border-radius: 8px; 
+            margin-top: 12px; 
+            border: 1px solid #e2e8f0; 
+            display: none;
+        }
+        .preview-img.show { display: block; }
+        
+        /* Inputs */
+        textarea { 
+            width: 100%; 
+            min-height: 120px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            padding: 12px; 
+            font-size: 14px; 
+            resize: vertical; 
+            font-family: inherit; 
+            outline: none;
+        }
+        textarea:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        
+        /* Market Selection */
+        .market-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 10px; 
+        }
+        .market-chip { 
+            padding: 10px 16px; 
+            border: 1.5px solid #e2e8f0; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            text-align: center; 
+            font-size: 13px; 
+            font-weight: 500; 
+            color: #475569; 
+            transition: all 0.15s; 
+            background: white; 
+            user-select: none;
+        }
+        .market-chip:hover { border-color: #3b82f6; color: #3b82f6; }
+        .market-chip.selected { 
+            border-color: #3b82f6; 
+            background: #eff6ff; 
+            color: #2563eb; 
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1); 
+        }
+        
+        /* Buttons */
+        .btn-primary { 
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
+            color: white; 
+            border: none; 
+            padding: 12px 32px; 
+            border-radius: 10px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        
+        /* Spinner & Progress */
+        .spinner { 
+            width: 40px; 
+            height: 40px; 
+            border: 3px solid #e2e8f0; 
+            border-top-color: #3b82f6; 
+            border-radius: 50%; 
+            animation: spin 0.8s linear infinite; 
+            margin: 0 auto 16px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .progress-bar { 
+            height: 4px; 
+            background: #e2e8f0; 
+            border-radius: 2px; 
+            overflow: hidden; 
+            max-width: 400px; 
+            margin: 16px auto;
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6); 
+            width: 0%; 
+            transition: width 0.3s ease; 
+        }
+        
+        /* Report Layout */
+        .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .report-grid { grid-template-columns: 1fr; } }
+        
+        /* Track Cards */
+        .track-card { border-radius: 12px; padding: 20px; border: 1px solid; }
+        .track-hard { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border-color: #fbbf24; }
+        .track-culture { background: linear-gradient(135deg, #fce7f3 0%, #fdf2f8 100%); border-color: #f472b6; }
+        .track-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .track-icon { 
+            width: 36px; 
+            height: 36px; 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 18px; 
+        }
+        .track-hard .track-icon { background: #fbbf24; }
+        .track-culture .track-icon { background: #f472b6; color: white; }
+        .track-title { font-size: 16px; font-weight: 700; color: #1e293b; }
+        .track-sub { font-size: 12px; color: #64748b; }
+        
+        /* Risk Items */
+        .risk-item { 
+            background: rgba(255,255,255,0.7); 
+            border-radius: 8px; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            border-left: 3px solid; 
+        }
+        .risk-high { border-left-color: #ef4444; }
+        .risk-mid { border-left-color: #f59e0b; }
+        .risk-low { border-left-color: #10b981; }
+        .risk-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .risk-label { 
+            font-size: 12px; 
+            font-weight: 700; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+        }
+        .risk-high .risk-label { background: #fee2e2; color: #dc2626; }
+        .risk-mid .risk-label { background: #fef3c7; color: #d97706; }
+        .risk-low .risk-label { background: #d1fae5; color: #059669; }
+        .risk-title { font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 2px; }
+        .risk-desc { font-size: 12px; color: #64748b; line-height: 1.4; }
+        .source-tag { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 4px; 
+            font-size: 11px; 
+            color: #94a3b8; 
+            margin-top: 6px; 
+        }
+        .source-grade { 
+            font-weight: 700; 
+            padding: 1px 5px; 
+            border-radius: 3px; 
+            font-size: 10px; 
+        }
+        .grade-a { background: #dbeafe; color: #1d4ed8; }
+        .grade-b { background: #dcfce7; color: #15803d; }
+        .grade-c { background: #f3e8ff; color: #7c3aed; }
+        .grade-d { background: #f1f5f9; color: #475569; }
+        
+        /* Checklist Table */
+        .checklist-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .checklist-table th { 
+            text-align: left; 
+            padding: 10px 12px; 
+            background: #f8fafc; 
+            color: #475569; 
+            font-weight: 600; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        .checklist-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+        .status-badge { 
+            display: inline-block; 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            margin-right: 6px; 
+        }
+        .status-miss { background: #ef4444; }
+        .status-ok { background: #10b981; }
+        .status-unclear { background: #f59e0b; }
+        
+        /* Fix Suggestions */
+        .fix-box { 
+            background: #f0f9ff; 
+            border: 1px solid #bae6fd; 
+            border-radius: 8px; 
+            padding: 12px; 
+            margin-top: 12px; 
+        }
+        .fix-title { 
+            font-size: 12px; 
+            font-weight: 700; 
+            color: #0369a1; 
+            margin-bottom: 6px; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+        .fix-item { 
+            font-size: 12px; 
+            color: #334155; 
+            padding: 6px 0; 
+            border-bottom: 1px dashed #e0f2fe; 
+        }
+        .fix-item:last-child { border-bottom: none; }
+        
+        /* Utility */
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .meta-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+        .meta-item { 
+            font-size: 12px; 
+            color: #64748b; 
+            background: #f8fafc; 
+            padding: 6px 12px; 
+            border-radius: 6px; 
+        }
+        .tag { 
+            display: inline-block; 
+            padding: 2px 8px; 
+            background: #e0e7ff; 
+            color: #4338ca; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: 600; 
+            margin-right: 4px; 
+        }
+        .center { text-align: center; }
+        .mt-20 { margin-top: 20px; }
+        .mb-40 { margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🛡️ 跨规雷达 CompliScan</h1>
+            <p>AI 跨境合规检测 · 硬合规 + 文化合规双轨报告</p>
+        </div>
+
+        <!-- Step 1: Input -->
+        <div id="step-input" class="card fade-in">
+            <div class="card-title">📤 上传检测素材</div>
+            
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">点击或拖拽上传商品图</div>
+                <div class="upload-hint">支持 JPG、PNG，建议尺寸 800×800 以上</div>
+                <input type="file" id="fileInput" accept="image/*" style="display:none">
+                <img id="previewImg" class="preview-img" />
+            </div>
+
+            <div style="margin-top: 16px;">
+                <div style="font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 6px;">📝 Listing 文案</div>
+                <textarea id="listingText" placeholder="粘贴商品标题、描述、卖点等文案（支持多语言）..."></textarea>
+            </div>
+
+            <div style="margin-top: 16px;">
+                <div style="font-size: 13px; font-weight: 600; color: #475569; margin-bottom: 10px;">🌍 目标市场</div>
+                <div class="market-grid" id="marketGrid">
+                    <div class="market-chip" data-market="us">🇺🇸 美国</div>
+                    <div class="market-chip" data-market="eu">🇪🇺 欧盟</div>
+                    <div class="market-chip" data-market="me">🇸🇦 中东</div>
+                    <div class="market-chip" data-market="sea">🇸🇬 东南亚</div>
+                    <div class="market-chip" data-market="latam">🇧🇷 拉美</div>
+                </div>
+            </div>
+
+            <div class="center mt-20">
+                <button class="btn-primary" id="scanBtn">
+                    <span>🔍 开始合规检测</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Scanning -->
+        <div id="step-scanning" class="card hidden">
+            <div class="center" style="padding: 40px;">
+                <div class="spinner"></div>
+                <div style="font-size: 16px; font-weight: 600; color: #1e293b; margin-bottom: 8px;">正在分析商品图与文案...</div>
+                <div style="font-size: 13px; color: #94a3b8; margin-bottom: 20px;">
+                    qwen3-vl-plus 视觉理解 · 规则库 RAG 检索 · 双轨推理
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div style="margin-top: 12px; font-size: 12px; color: #94a3b8;" id="progressText">初始化模型...</div>
+            </div>
+        </div>
+
+        <!-- Step 3: Report -->
+        <div id="step-report" class="hidden">
+            <div class="card fade-in">
+                <div class="meta-row">
+                    <div class="meta-item">📅 检测时间: <span id="reportTime">--</span></div>
+                    <div class="meta-item">🎯 目标市场: <span id="reportMarkets">--</span></div>
+                    <div class="meta-item">⏱️ 耗时: <span id="reportDuration">12.3s</span></div>
+                </div>
+                <div>
+                    <span class="tag">双轨报告</span>
+                    <span class="tag">规则可溯源</span>
+                    <span class="tag">检测即整改</span>
+                </div>
+            </div>
+
+            <div class="report-grid">
+                <!-- Hard Compliance Track -->
+                <div class="track-card track-hard fade-in">
+                    <div class="track-header">
+                        <div class="track-icon">⚖️</div>
+                        <div>
+                            <div class="track-title">硬合规轨道</div>
+                            <div class="track-sub">平台规则 · 广告法 · 标签认证 · IP 轻提示</div>
+                        </div>
+                    </div>
+                    <div id="hardRisks"></div>
+                </div>
+
+                <!-- Culture Compliance Track -->
+                <div class="track-card track-culture fade-in">
+                    <div class="track-header">
+                        <div class="track-icon">🕌</div>
+                        <div>
+                            <div class="track-title">文化合规轨道</div>
+                            <div class="track-sub">宗教符号 · 禁忌色 · 手势着装 · 节日营销</div>
+                        </div>
+                    </div>
+                    <div id="cultureRisks"></div>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="card fade-in mt-20">
+                <div class="card-title">📋 标签与认证清单（品类 × 目标市场）</div>
+                <table class="checklist-table">
+                    <thead>
+                        <tr><th>检查项</th><th>要求</th><th>状态</th></tr>
+                    </thead>
+                    <tbody id="checklistBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Fix Suggestions -->
+            <div class="card fade-in mt-20">
+                <div class="card-title">🛠️ 一键整改建议</div>
+                <div class="fix-box">
+                    <div class="fix-title">✏️ 文案替换建议</div>
+                    <div id="textFixes"></div>
+                </div>
+                <div class="fix-box mt-20">
+                    <div class="fix-title">🎨 图像整改建议</div>
+                    <div id="imageFixes"></div>
+                </div>
+            </div>
+
+            <div class="center mt-20 mb-40">
+                <button class="btn-primary" id="resetBtn">🔄 新的检测</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let selectedMarkets = [];
+        let uploadedImage = null;
+        const marketNames = { us: '美国', eu: '欧盟', me: '中东', sea: '东南亚', latam: '拉美' };
+
+        // DOM Elements
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const previewImg = document.getElementById('previewImg');
+        const listingText = document.getElementById('listingText');
+        const scanBtn = document.getElementById('scanBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        // Event Listeners
+        uploadZone.addEventListener('click', () => fileInput.click());
+        
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+        
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('active');
+        });
+        
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('active'));
+        
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('active');
+            const files = e.dataTransfer.files;
+            if (files.length) handleFile(files[0]);
+        });
+
+        document.querySelectorAll('.market-chip').forEach(chip => {
+            chip.addEventListener('click', () => toggleMarket(chip));
+        });
+
+        scanBtn.addEventListener('click', startScan);
+        resetBtn.addEventListener('click', resetApp);
+
+        // Functions
+        function handleFile(file) {
+            if (!file) return;
+            uploadedImage = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                previewImg.classList.add('show');
+                uploadZone.classList.add('active');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function toggleMarket(el) {
+            const market = el.dataset.market;
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selectedMarkets = selectedMarkets.filter(m => m !== market);
+            } else {
+                el.classList.add('selected');
+                selectedMarkets.push(market);
+            }
+        }
+
+        function startScan() {
+            if (!uploadedImage && !listingText.value.trim()) {
+                alert('请上传商品图或输入 Listing 文案');
+                return;
+            }
+            if (selectedMarkets.length === 0) {
+                alert('请至少选择一个目标市场');
+                return;
+            }
+
+            document.getElementById('step-input').classList.add('hidden');
+            document.getElementById('step-scanning').classList.remove('hidden');
+
+            const steps = [
+                '初始化视觉模型...',
+                'OCR 提取图上文字...', 
+                'RAG 检索目标市场规则...',
+                '双轨推理判定...',
+                '生成整改建议...'
+            ];
+            
+            let i = 0;
+            progressFill.style.width = '0%';
+            
+            const interval = setInterval(() => {
+                i++;
+                progressFill.style.width = (i * 20) + '%';
+                if (i < steps.length) progressText.textContent = steps[i];
+                if (i >= 5) {
+                    clearInterval(interval);
+                    setTimeout(showReport, 400);
+                }
+            }, 250);
+        }
+
+        function showReport() {
+            document.getElementById('step-scanning').classList.add('hidden');
+            document.getElementById('step-report').classList.remove('hidden');
+
+            const now = new Date();
+            document.getElementById('reportTime').textContent = now.toLocaleString('zh-CN');
+            document.getElementById('reportMarkets').textContent = selectedMarkets.map(m => marketNames[m]).join('、');
+
+            const hasME = selectedMarkets.includes('me');
+            const hasUS = selectedMarkets.includes('us');
+            const hasEU = selectedMarkets.includes('eu');
+            const hasSEA = selectedMarkets.includes('sea');
+
+            const hardRisks = [];
+            const cultureRisks = [];
+
+            // Culture Risks (Market-specific)
+            if (hasME) {
+                cultureRisks.push({
+                    level: 'high',
+                    label: '高风险',
+                    title: '疑似宗教符号：六角星图案',
+                    desc: '商品图背景含六角星几何图案，在中东市场易被关联至敏感政治/宗教符号，建议移除或替换为中性花纹。',
+                    source: '沙特 SASO 文化指引 / 行业共识',
+                    grade: 'D',
+                    gradeClass: 'grade-d'
+                });
+            }
+            if (hasEU) {
+                cultureRisks.push({
+                    level: 'low',
+                    label: '低风险',
+                    title: '节日营销注意：圣诞节元素',
+                    desc: '含圣诞树图案，在部分欧洲多元文化场景下建议增加 "Happy Holidays" 替代纯圣诞文案以覆盖更广泛人群。',
+                    source: '平台政策 / 行业共识',
+                    grade: 'C',
+                    gradeClass: 'grade-c'
+                });
+            }
+            
+            // Hard Risks (Market-specific)
+            if (hasUS) {
+                hardRisks.push({
+                    level: 'high',
+                    label: '高风险',
+                    title: '极限词违规："Best" 绝对化用语',
+                    desc: 'Listing 标题含 "The Best Choice"，违反 FTC 广告法关于绝对化声明的规定，需提供实证或删除。',
+                    source: 'FTC 广告指引',
+                    grade: 'A',
+                    gradeClass: 'grade-a'
+                });
+                hardRisks.push({
+                    level: 'mid',
+                    label: '中风险',
+                    title: 'CPSIA 追踪标签待确认',
+                    desc: '儿童品类商品需永久标注产地、批次、生产商信息，请核对实物标签是否合规。',
+                    source: 'CPSC 16 CFR 1500',
+                    grade: 'A',
+                    gradeClass: 'grade-a'
+                });
+            }
+            if (hasEU) {
+                hardRisks.push({
+                    level: 'high',
+                    label: '高风险',
+                    title: 'GPSR 责任人信息缺失',
+                    desc: '欧盟 GPSR 要求商品必须标注欧盟境内经济运营者信息，当前 Listing 未体现。',
+                    source: 'EU GPSR 条例',
+                    grade: 'A',
+                    gradeClass: 'grade-a'
+                });
+            }
+            if (hasME) {
+                hardRisks.push({
+                    level: 'mid',
+                    label: '中风险',
+                    title: '标签缺失：阿拉伯语成分说明',
+                    desc: '沙特/阿联酋要求化妆品/食品类商品标签必须含阿拉伯语成分表，当前文案仅含英文。',
+                    source: '沙特 SASO 技术法规',
+                    grade: 'A',
+                    gradeClass: 'grade-a'
+                });
+            }
+
+            // Fallback if no risks
+            if (cultureRisks.length === 0) {
+                cultureRisks.push({
+                    level: 'low',
+                    label: '低风险',
+                    title: '未发现明显文化禁忌',
+                    desc: '当前素材在选定市场未触发高风险文化规则，建议定期复查。',
+                    source: '规则库推理',
+                    grade: 'B',
+                    gradeClass: 'grade-b'
+                });
+            }
+
+            renderRisks('hardRisks', hardRisks);
+            renderRisks('cultureRisks', cultureRisks);
+
+            // Checklist
+            const checklist = [];
+            if (hasUS) {
+                checklist.push(['CPSIA 追踪标签', '儿童产品须永久标注产地、日期、批次', 'miss']);
+                checklist.push(['FCC 认证', '电子电器类须符合 FCC Part 15', 'unclear']);
+            }
+            if (hasEU) {
+                checklist.push(['GPSR 责任人', '须标注欧盟境内经济运营者', 'miss']);
+                checklist.push(['CE 标志', '符合性声明与技术文件备查', 'ok']);
+            }
+            if (hasME) {
+                checklist.push(['阿拉伯语标签', '化妆品/食品须含阿语成分表', 'miss']);
+                checklist.push(['清真认证 (BPJPH)', '2026-10-17 起印尼强制要求', 'unclear']);
+            }
+            if (hasSEA) {
+                checklist.push(['泰国 FDA 注册', '食品/化妆品须完成注册', 'unclear']);
+                checklist.push(['新加坡 HSA 申报', '医疗器械/药品类须申报', 'unclear']);
+            }
+
+            const tbody = document.getElementById('checklistBody');
+            tbody.innerHTML = checklist.map(([item, req, status]) => {
+                const map = {
+                    ok: ['已满足', 'status-ok'],
+                    miss: ['缺失', 'status-miss'],
+                    unclear: ['待确认', 'status-unclear']
+                };
+                const [label, cls] = map[status];
+                return `<tr>
+                    <td><strong>${item}</strong></td>
+                    <td>${req}</td>
+                    <td><span class="status-badge ${cls}"></span>${label}</td>
+                </tr>`;
+            }).join('');
+
+            // Fixes
+            document.getElementById('textFixes').innerHTML = `
+                <div class="fix-item">❌ "The Best Choice" → ✅ "A Popular Choice Among Customers"</div>
+                <div class="fix-item">❌ "100% Effective" → ✅ "Clinically Tested Formula"</div>
+                ${hasME ? '<div class="fix-item">🌐 建议补充阿拉伯语成分说明（可联系本地翻译服务商）</div>' : ''}
+                ${hasEU ? '<div class="fix-item">📋 在 Listing 底部添加欧盟责任人名称、地址与电子邮箱</div>' : ''}
+            `;
+
+            document.getElementById('imageFixes').innerHTML = `
+                ${hasME ? '<div class="fix-item">🎨 对图中六角星背景图案进行局部重绘，替换为中性几何纹理（wanx2.1-imageedit）</div>' : ''}
+                <div class="fix-item">📐 若保留原图，建议裁剪避开风险区域并添加装饰性遮罩</div>
+                <div class="fix-item" style="color: #0284c7; font-weight: 600;">
+                    💡 点击「AI 一键整改」可自动生成本地化合规替代图（异步处理，约 15-30s）
+                </div>
+            `;
+        }
+
+        function renderRisks(containerId, risks) {
+            const container = document.getElementById(containerId);
+            if (risks.length === 0) {
+                container.innerHTML = '<div style="text-align:center; color: #94a3b8; padding: 20px; font-size: 13px;">✅ 当前市场未触发硬合规风险</div>';
+                return;
+            }
+            container.innerHTML = risks.map(r => `
+                <div class="risk-item risk-${r.level}">
+                    <div class="risk-header">
+                        <span class="risk-title">${r.title}</span>
+                        <span class="risk-label">${r.label}</span>
+                    </div>
+                    <div class="risk-desc">${r.desc}</div>
+                    <div class="source-tag">
+                        <span>规则来源:</span>
+                        <span class="source-grade ${r.gradeClass}">${r.grade}级</span>
+                        <span>${r.source}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function resetApp() {
+            document.getElementById('step-report').classList.add('hidden');
+            document.getElementById('step-input').classList.remove('hidden');
+            listingText.value = '';
+            previewImg.src = '';
+            previewImg.classList.remove('show');
+            uploadZone.classList.remove('active');
+            uploadedImage = null;
+            selectedMarkets = [];
+            document.querySelectorAll('.market-chip').forEach(el => el.classList.remove('selected'));
+            progressFill.style.width = '0%';
+            progressText.textContent = '初始化模型...';
+        }
+    </script>
+</body>
+</html>
