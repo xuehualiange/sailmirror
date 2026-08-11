@@ -1,0 +1,100 @@
+================================================================================
+[2026-08-11T17:02:36] Run ID: 20260811-170236
+image=main.py | market=middle_east | has_listing=True
+--------------------------------------------------------------------------------
+startup.validation              0.010s
+culture.rag                     0.000s
+culture.ai                      0.000s
+culture.agent_total             0.000s
+hard.rag                        0.000s
+hard.ai                         0.000s
+hard.agent_total                0.000s
+parallel.wall_time              0.050s
+report.output                   0.005s
+--------------------------------------------------------------------------------
+run.total                       0.017s
+================================================================================
+========================================================================================
+[2026-08-11T17:07:03] Run ID: 20260811-170703-959765
+status=failed
+image=nonexistent.jpg | market=middle_east | has_listing=False
+error=图片不存在：nonexistent.jpg
+----------------------------------------------------------------------------------------
+startup.validate_market            0.000s  (  0.0%)
+startup.validate_image             0.000s  (100.0%)
+startup.validation                 0.000s  (100.0%)
+----------------------------------------------------------------------------------------
+run.total                          0.000s  (100.0%)
+========================================================================================
+JSON
+{"run_id": "20260811-170703-959765", "status": "failed", "error": "图片不存在：nonexistent.jpg", "metadata": {"image": "nonexistent.jpg", "market": "middle_east", "has_listing": "False"}, "stages": {"startup.validate_market": 0.0, "startup.validate_image": 0.0001, "startup.validation": 0.0001}, "total_seconds": 0.0001}
+========================================================================================
+[2026-08-11T17:07:13] Run ID: 20260811-170713-381597
+status=success
+image=demo.jpg | market=us | has_listing=True
+----------------------------------------------------------------------------------------
+startup.validate_market            0.002s  (  3.6%)
+startup.validate_image             0.003s  (  5.6%)
+startup.ensure_api_key             0.002s  (  2.6%)
+parallel.wall_time                 0.050s  ( 86.0%)
+report.output                      0.000s  (  0.0%)
+----------------------------------------------------------------------------------------
+run.total                          0.059s  (100.0%)
+========================================================================================
+JSON
+{"run_id": "20260811-170713-381597", "status": "success", "error": "", "metadata": {"image": "demo.jpg", "market": "us", "has_listing": "True"}, "stages": {"startup.validate_market": 0.0021, "startup.validate_image": 0.0033, "startup.ensure_api_key": 0.0015, "parallel.wall_time": 0.0503, "report.output": 0.0}, "total_seconds": 0.0585}
+========================================================================================
+[2026-08-11T17:13:42] Run ID: 20260811-171342-708609
+status=failed
+image=missing.jpg | market=middle_east | has_listing=False
+error=图片不存在：missing.jpg
+----------------------------------------------------------------------------------------
+startup.validate_market            0.000s  (  0.0%)
+startup.validate_image             0.001s  ( 91.7%)
+startup.validation                 0.001s  (100.0%)
+----------------------------------------------------------------------------------------
+run.total                          0.001s  (100.0%)
+========================================================================================
+JSON
+{"run_id": "20260811-171342-708609", "status": "failed", "error": "图片不存在：missing.jpg", "metadata": {"image": "missing.jpg", "market": "middle_east", "has_listing": "False"}, "stages": {"startup.validate_market": 0.0, "startup.validate_image": 0.0011, "startup.validation": 0.0012}, "total_seconds": 0.0012}
+========================================================================================
+[2026-08-11T17:13:43] Run ID: 20260811-171343-576369
+status=failed
+image=test_sample.jpg | market=bad_market | has_listing=False
+error=不支持的目标市场：bad_market
+可选市场：middle_east / japan / us / eu / southeast_asia
+----------------------------------------------------------------------------------------
+startup.validate_market            0.000s  (  0.0%)
+startup.validation                 0.000s  (  0.0%)
+----------------------------------------------------------------------------------------
+run.total                          0.000s  (100.0%)
+========================================================================================
+JSON
+{"run_id": "20260811-171343-576369", "status": "failed", "error": "不支持的目标市场：bad_market\n可选市场：middle_east / japan / us / eu / southeast_asia", "metadata": {"image": "test_sample.jpg", "market": "bad_market", "has_listing": "False"}, "stages": {"startup.validate_market": 0.0, "startup.validation": 0.0}, "total_seconds": 0.0001}
+========================================================================================
+[2026-08-11T17:13:44] Run ID: 20260811-171344-483501
+status=failed
+image=test_sample.jpg | market=middle_east | has_listing=False
+error=未配置有效的 ALIYUN_API_KEY。请在项目根目录创建 .env 文件并设置：
+  ALIYUN_API_KEY=sk-xxxxxxxx
+----------------------------------------------------------------------------------------
+startup.validate_market            0.000s  (  0.0%)
+startup.validate_image             0.086s  ( 99.9%)
+startup.ensure_api_key             0.000s  (  0.0%)
+startup.validation                 0.086s  (100.0%)
+----------------------------------------------------------------------------------------
+run.total                          0.086s  (100.0%)
+========================================================================================
+JSON
+{"run_id": "20260811-171344-483501", "status": "failed", "error": "未配置有效的 ALIYUN_API_KEY。请在项目根目录创建 .env 文件并设置：\n  ALIYUN_API_KEY=sk-xxxxxxxx", "metadata": {"image": "test_sample.jpg", "market": "middle_east", "has_listing": "False"}, "stages": {"startup.validate_market": 0.0, "startup.validate_image": 0.0857, "startup.ensure_api_key": 0.0, "startup.validation": 0.0858}, "total_seconds": 0.0858}
+========================================================================================
+[2026-08-11T17:13:44] Run ID: 20260811-171344-649244
+status=success
+image=test_sample.jpg | market=middle_east | has_listing=True
+----------------------------------------------------------------------------------------
+report.output                      0.000s  (  0.0%)
+----------------------------------------------------------------------------------------
+run.total                          0.001s  (100.0%)
+========================================================================================
+JSON
+{"run_id": "20260811-171344-649244", "status": "success", "error": "", "metadata": {"image": "test_sample.jpg", "market": "middle_east", "has_listing": "True"}, "stages": {"report.output": 0.0}, "total_seconds": 0.0009}
