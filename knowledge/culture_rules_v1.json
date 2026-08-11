@@ -1,0 +1,602 @@
+[
+  {
+    "id": "ME-001",
+    "market": "middle_east",
+    "category": "人物着装",
+    "rule": "女性着装需遮盖肩膀和膝盖以上不得展示紧身透视服装",
+    "severity": "极高",
+    "source": "沙特文化部视听审查委员会",
+    "source_level": "A",
+    "source_url": "https://mcg.gov.sa"
+  },
+  {
+    "id": "ME-002",
+    "market": "middle_east",
+    "category": "人物着装",
+    "rule": "阿联酋商业广告中人物着装不得违背伊斯兰道德价值观禁止暴露性感形象",
+    "severity": "极高",
+    "source": "阿联酋媒体委员会MTC",
+    "source_level": "A",
+    "source_url": "https://www.mtc.gov.ae"
+  },
+  {
+    "id": "ME-003",
+    "market": "middle_east",
+    "category": "人物着装",
+    "rule": "男女混排广告画面应避免亲密肢体接触描写须符合伊斯兰传统社交规范",
+    "severity": "极高",
+    "source": "沙特文化部视听审查",
+    "source_level": "A",
+    "source_url": "https://mcg.gov.sa"
+  },
+  {
+    "id": "ME-004",
+    "market": "middle_east",
+    "category": "人物着装",
+    "rule": "男性着装广告展示中不得出现无上衣裸露胸肌的画面公共场所需遮盖肩部和胸部",
+    "severity": "高",
+    "source": "沙特文化部视听审查",
+    "source_level": "A",
+    "source_url": "https://mcg.gov.sa"
+  },
+  {
+    "id": "ME-005",
+    "market": "middle_east",
+    "category": "宗教符号",
+    "rule": "禁止在广告和商品包装上使用清真寺麦加天房等伊斯兰神圣建筑图案用于普通商品促销",
+    "severity": "极高",
+    "source": "伊斯兰教法/沙特SASO",
+    "source_level": "A",
+    "source_url": "https://www.saso.gov.sa"
+  },
+  {
+    "id": "ME-006",
+    "market": "middle_east",
+    "category": "宗教符号",
+    "rule": "禁止将古兰经经文阿拉伯书法等宗教元素用于商品装饰或日常用品设计",
+    "severity": "极高",
+    "source": "海湾国家伊斯兰学者委员会",
+    "source_level": "B",
+    "source_url": "https://www.oic-oci.org"
+  },
+  {
+    "id": "ME-007",
+    "market": "middle_east",
+    "category": "宗教符号",
+    "rule": "斋月期间商品广告需调整设计风格避免过度商业化表达使用柔和色调融入开斋节元素",
+    "severity": "高",
+    "source": "沙特文化部视听审查",
+    "source_level": "B",
+    "source_url": "https://mcg.gov.sa"
+  },
+  {
+    "id": "ME-008",
+    "market": "middle_east",
+    "category": "宗教符号",
+    "rule": "广告中不得出现朝向天房Kaaba的手势图案用于商业促销属亵渎行为",
+    "severity": "极高",
+    "source": "伊斯兰教法/沙特宗教遗产委员会",
+    "source_level": "B",
+    "source_url": "https://www.heritage.gov.sa"
+  },
+  {
+    "id": "ME-009",
+    "market": "middle_east",
+    "category": "饮食禁忌",
+    "rule": "进口食品必须取得Halal认证方可在中东市场销售标识需经当地宗教事务部门审核",
+    "severity": "极高",
+    "source": "沙特SASO Halal认证标准",
+    "source_level": "A",
+    "source_url": "https://www.saso.gov.sa"
+  },
+  {
+    "id": "ME-010",
+    "market": "middle_east",
+    "category": "饮食禁忌",
+    "rule": "所有涉及食品和饮品的广告严禁展示猪肉制品及相关加工场景含卡通形象亦不可使用",
+    "severity": "极高",
+    "source": "阿联酋食品药品监督管理局EFSA",
+    "source_level": "A",
+    "source_url": "https://www.efsa.gov.ae"
+  },
+  {
+    "id": "ME-011",
+    "market": "middle_east",
+    "category": "饮食禁忌",
+    "rule": "餐厅外卖平台广告图片中的食物需与实物相符不得用与Halal无关的元素误导消费者",
+    "severity": "高",
+    "source": "迪拜市监局DED",
+    "source_level": "B",
+    "source_url": "https://www.dubaided.gov.ae"
+  },
+  {
+    "id": "ME-012",
+    "market": "middle_east",
+    "category": "饮食禁忌",
+    "rule": "非Halal认证食品在电商平台销售时需明确声明未获认证不得模糊标注其状态",
+    "severity": "高",
+    "source": "海湾Halal认证互认协议",
+    "source_level": "B",
+    "source_url": "https://www.saso.gov.sa"
+  },
+  {
+    "id": "ME-013",
+    "market": "middle_east",
+    "category": "手势",
+    "rule": "广告中出现的人物手势不得使用竖中指等不雅手势某些阿拉伯语境下竖大拇指具冒犯含义",
+    "severity": "高",
+    "source": "阿联酋媒体委员会MTC",
+    "source_level": "B",
+    "source_url": "https://www.mtc.gov.ae"
+  },
+  {
+    "id": "ME-014",
+    "market": "middle_east",
+    "category": "文化习俗",
+    "rule": "广告内容需尊重中东当地从左至右的阿拉伯语阅读习惯避免文字方向错位造成歧义",
+    "severity": "中",
+    "source": "阿联酋数字监管部门TECOM",
+    "source_level": "B",
+    "source_url": "https://www.tecom.ae"
+  },
+  {
+    "id": "ME-015",
+    "market": "middle_east",
+    "category": "文化习俗",
+    "rule": "广告中如出现家庭成员场景应避免男性完全缺席而仅有女性出镜",
+    "severity": "中",
+    "source": "中东社会文化研究文献",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "ME-016",
+    "market": "middle_east",
+    "category": "文化习俗",
+    "rule": "广告时间轴安排应避开伊斯兰祈祷时间每日五次不得在礼拜时段投放相关商品推广",
+    "severity": "中",
+    "source": "中东商业惯例研究",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "ME-017",
+    "market": "middle_east",
+    "category": "颜色禁忌",
+    "rule": "黄色在部分海湾国家丧事中使用谨慎用于喜庆商品包装主色调",
+    "severity": "中",
+    "source": "中东文化惯例研究",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "ME-018",
+    "market": "middle_east",
+    "category": "包装要求",
+    "rule": "出口沙特商品包装必须以阿拉伯语为主标识英文为辅标明产地及制造商信息",
+    "severity": "高",
+    "source": "沙特SASO/海湾标准化组织GSO",
+    "source_level": "A",
+    "source_url": "https://www.gso.org.sa"
+  },
+  {
+    "id": "ME-019",
+    "market": "middle_east",
+    "category": "广告法",
+    "rule": "跨境电商广告中不得使用与当地伊斯兰价值观冲突的内容如涉及赌博毒品暗示",
+    "severity": "极高",
+    "source": "海湾国家广告自律委员会",
+    "source_level": "C",
+    "source_url": "https://www.cadc-me.org"
+  },
+  {
+    "id": "ME-020",
+    "market": "middle_east",
+    "category": "广告法",
+    "rule": "沙特和阿联酋均要求电商广告页面提供阿拉伯语版本英语单独展示可能被判定为违规",
+    "severity": "高",
+    "source": "沙特竞争与消费保护局",
+    "source_level": "A",
+    "source_url": "https://gci.gov.sa"
+  },
+  {
+    "id": "US-001",
+    "market": "us",
+    "category": "广告法",
+    "rule": "禁止使用Best Top #1等绝对化用语除非能提供可验证的数据支撑",
+    "severity": "高",
+    "source": "FTC广告法执法指南",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/tutorials/discover-official-guidelines-and-legislation"
+  },
+  {
+    "id": "US-002",
+    "market": "us",
+    "category": "广告法",
+    "rule": "价格促销广告中原价必须为真实最近成交价虚构划线价属FTC欺诈性定价行为",
+    "severity": "高",
+    "source": "FTC定价欺诈执法政策",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/business-guidance/resources/complying-dark-patterns"
+  },
+  {
+    "id": "US-003",
+    "market": "us",
+    "category": "广告法",
+    "rule": "广告中使用免费Free赠送Giveaway等词汇必须真实无条件不得附加隐性消费条件",
+    "severity": "极高",
+    "source": "FTC Endorsement Guides",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/tutorials/guides-endorsements"
+  },
+  {
+    "id": "US-004",
+    "market": "us",
+    "category": "广告法",
+    "rule": "网红KOL推广帖子必须使用Disclosure标识如 hashtag Sponsored或Ad字样",
+    "severity": "高",
+    "source": "FTC Influencer Guidelines",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/business-guidance/resources/guidelines-advertising-discoveries"
+  },
+  {
+    "id": "US-005",
+    "market": "us",
+    "category": "广告法",
+    "rule": "限时优惠必须设置真实的倒计时期限制造虚假紧迫感属FTC Dark Pattern违规",
+    "severity": "高",
+    "source": "FTC反暗模式执法",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/policy/report-hidden-takeaways-dark-patterns"
+  },
+  {
+    "id": "US-006",
+    "market": "us",
+    "category": "广告法",
+    "rule": "健康类supplements产品不得使用未经FDA批准的治疗疾病声明",
+    "severity": "极高",
+    "source": "FTC/FDA联合监管要求",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/business-guidance/blog/2023/07/consumer-alert-supplements-health-claims"
+  },
+  {
+    "id": "US-007",
+    "market": "us",
+    "category": "广告法",
+    "rule": "环保声明如可持续碳中和需有科学依据支持否则FTC可依据Green Guides执法",
+    "severity": "高",
+    "source": "FTC Green Guides",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/policy/environmental-guidance"
+  },
+  {
+    "id": "US-008",
+    "market": "us",
+    "category": "广告法",
+    "rule": "AI生成内容用于广告时必须在明显位置披露不得让消费者误认为是真人体验",
+    "severity": "中",
+    "source": "FTC AI广告指南建议稿",
+    "source_level": "B",
+    "source_url": "https://www.ftc.gov/business-guidance/resources/artificial-intelligence-compliance"
+  },
+  {
+    "id": "US-009",
+    "market": "us",
+    "category": "认证要求",
+    "rule": "儿童玩具必须通过CPC儿童产品证书并附CPSC认可的第三方实验室测试报告",
+    "severity": "极高",
+    "source": "美国消费品安全委员会CPSC",
+    "source_level": "A",
+    "source_url": "https://www.cpsc.gov"
+  },
+  {
+    "id": "US-010",
+    "market": "us",
+    "category": "认证要求",
+    "rule": "医疗器械类商品含健康监测设备需取得FDA上市前批准方可在美国市场销售",
+    "severity": "极高",
+    "source": "美国FDA",
+    "source_level": "A",
+    "source_url": "https://www.fda.gov/medical-devices"
+  },
+  {
+    "id": "US-011",
+    "market": "us",
+    "category": "认证要求",
+    "rule": "无线电设备含蓝牙WiFi产品必须标注FCC ID标识未取得授权不得销售",
+    "severity": "极高",
+    "source": "FCC射频合规",
+    "source_level": "A",
+    "source_url": "https://www.fcc.gov/engineering-technology/electromagnetic-compatibility-division/radio-frequency-systems"
+  },
+  {
+    "id": "US-012",
+    "market": "us",
+    "category": "认证要求",
+    "rule": "锂电池及含锂电池产品航空海运出口需满足UN38.3测试要求并取得MSDS报告",
+    "severity": "高",
+    "source": "美国DOT/IATA危险品规定",
+    "source_level": "A",
+    "source_url": "https://www.transportation.gov/pipeline-and-hazardous-materials-safety"
+  },
+  {
+    "id": "US-013",
+    "market": "us",
+    "category": "认证要求",
+    "rule": "化妆品出口需遵守FDCA第601条款不得含禁用色素添加剂且标签须完整成分列明",
+    "severity": "高",
+    "source": "美国FDA化妆品法规",
+    "source_level": "A",
+    "source_url": "https://www.fda.gov/cosmetics"
+  },
+  {
+    "id": "US-014",
+    "market": "us",
+    "category": "认证要求",
+    "rule": "纺织品和羊毛产品标签必须遵循FTC Wool Products Labeling Act标注纤维成分百分比",
+    "severity": "高",
+    "source": "FTC纺织标签法案",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/business-guidance/resources/complying-wool-products-labeling-act"
+  },
+  {
+    "id": "US-015",
+    "market": "us",
+    "category": "数据隐私",
+    "rule": "面向13岁以下儿童的网站和服务不得收集个人数据违反FTC儿童在线隐私保护法COPPA",
+    "severity": "极高",
+    "source": "FTC COPPA合规指南",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/business-guidance/resources/compliance-faq-child-online-privacy-protection-rule"
+  },
+  {
+    "id": "US-016",
+    "market": "us",
+    "category": "数据隐私",
+    "rule": "加州用户有权要求企业删除个人信息及拒绝出售其数据跨境卖家须合规响应",
+    "severity": "极高",
+    "source": "加州消费者隐私法案CCPA/CPRA",
+    "source_level": "A",
+    "source_url": "https://oag.ca.gov/privacy/ccpa"
+  },
+  {
+    "id": "US-017",
+    "market": "us",
+    "category": "数据隐私",
+    "rule": "收集用户生物识别信息如面部识别指纹须事先明示同意违反伊利诺伊州BIPA及多州立法",
+    "severity": "极高",
+    "source": "多州隐私法BIPA",
+    "source_level": "A",
+    "source_url": "https://www.ilga.gov/legislation/ilcs/fulltext.asp?DocName=1430"
+  },
+  {
+    "id": "US-018",
+    "market": "us",
+    "category": "包装要求",
+    "rule": "产品危险警示标签必须符合CPSC特定格式要求涉及小零件窒息风险须附法定警告图标",
+    "severity": "极高",
+    "source": "CPSC标签规格",
+    "source_level": "A",
+    "source_url": "https://www.cpsc.gov/Business--Registration/Certification--Compliance--and-Submissions/Child-Product-Tester"
+  },
+  {
+    "id": "US-019",
+    "market": "us",
+    "category": "广告法",
+    "rule": "加密货币投资类广告必须有充分风险提示不得承诺固定回报违者FTC严惩",
+    "severity": "高",
+    "source": "FTC消费者警示",
+    "source_level": "C",
+    "source_url": "https://www.consumerftc.gov/articles/how-avoid-crypto-pump-dump-scam"
+  },
+  {
+    "id": "US-020",
+    "market": "us",
+    "category": "广告法",
+    "rule": "跨境电商必须明确标注消费者评价是否为真实购买用户禁止购买刷评或虚假好评",
+    "severity": "高",
+    "source": "FTC评论验证指南",
+    "source_level": "A",
+    "source_url": "https://www.ftc.gov/news-events/topics/advertising/reviews"
+  },
+  {
+    "id": "EU-001",
+    "market": "eu",
+    "category": "认证要求",
+    "rule": "出口欧盟所有商品必须在产品上标注CE标志并通过相应合格评定程序否则海关扣押销毁",
+    "severity": "极高",
+    "source": "欧盟CE认证法规",
+    "source_level": "A",
+    "source_url": "https://ec.europa.eu/growth/sector-markets/ce-marking_en"
+  },
+  {
+    "id": "EU-002",
+    "market": "eu",
+    "category": "认证要求",
+    "rule": "无线通信设备除CE外还需符合RED指令2014/53/EU进行电磁兼容与无线电频谱认证",
+    "severity": "极高",
+    "source": "RED指令2014/53/EU",
+    "source_level": "A",
+    "source_url": "https://eur-lex.europa.eu/eli/dir/2014/53/oj"
+  },
+  {
+    "id": "EU-003",
+    "market": "eu",
+    "category": "认证要求",
+    "rule": "电子烟及尼古丁填充容器须遵守TPD烟草产品指令要求禁止在欧盟境内线上销售",
+    "severity": "极高",
+    "source": "EU TPD指令2014/40/EU",
+    "source_level": "A",
+    "source_url": "https://health.ec.europa.eu/product-regulation/consumer-products-and-safe-play/tobaccoproducts-direction_en"
+  },
+  {
+    "id": "EU-004",
+    "market": "eu",
+    "category": "认证要求",
+    "rule": "化学品REACH法规要求进入欧盟市场的物质需完成注册含化妆品纺织品染料等",
+    "severity": "高",
+    "source": "欧盟REACH法规EC 1907/2006",
+    "source_level": "A",
+    "source_url": "https://echa.europa.eu/regulations/reach/legislation"
+  },
+  {
+    "id": "EU-005",
+    "market": "eu",
+    "category": "数据隐私",
+    "rule": "GDPR规定向欧盟居民收集个人数据必须有合法依据需提供隐私政策并允许用户行使权利",
+    "severity": "极高",
+    "source": "GDPR第6条第13条",
+    "source_level": "A",
+    "source_url": "https://gdpr.eu/what-is-gdpr"
+  },
+  {
+    "id": "EU-006",
+    "market": "eu",
+    "category": "其他",
+    "rule": "数字服务法案DSA要求平台对非法内容和商品交易承担审查责任跨境卖家可能被下架处置",
+    "severity": "极高",
+    "source": "EU Digital Services Act",
+    "source_level": "A",
+    "source_url": "https://digital-strategy.ec.europa.eu/en/policies/digital-services-act"
+  },
+  {
+    "id": "EU-007",
+    "market": "eu",
+    "category": "其他",
+    "rule": "绿色声明指令Directive 2024/825禁止未经核证的环保声明如生态友好可降解",
+    "severity": "高",
+    "source": "欧盟绿色声明指令",
+    "source_level": "A",
+    "source_url": "https://single-market-economy.ec.europa.eu/business-activity-sustainable-business/sustainable-business-performance-green-washing_en"
+  },
+  {
+    "id": "EU-008",
+    "market": "eu",
+    "category": "其他",
+    "rule": "欧盟AI法案将电商推荐算法列为高风险系统需进行人类监督和数据治理合规评估",
+    "severity": "高",
+    "source": "EU AI Act Article 6",
+    "source_level": "A",
+    "source_url": "https://artificialintelligenceact.eu/article/6"
+  },
+  {
+    "id": "EU-009",
+    "market": "eu",
+    "category": "其他",
+    "rule": "欧盟可持续产品生态设计法规ESPR要求商品提供数字产品护照以便追溯全生命周期",
+    "severity": "中",
+    "source": "欧盟ESPR法规2024/1785",
+    "source_level": "A",
+    "source_url": "https://single-market-economy.ec.europa.eu/products-and-services/sustainability-and-circular-economy/new-eu-rules-sustainable-products_en"
+  },
+  {
+    "id": "EU-010",
+    "market": "eu",
+    "category": "其他",
+    "rule": "跨欧洲电商平台须在商品页面展示价格含税及完整卖家身份信息的退货政策",
+    "severity": "高",
+    "source": "欧盟消费者保护合作CPC条例",
+    "source_level": "A",
+    "source_url": "https://single-market-economy.ec.europa.eu/consumers/protecting-consumers/enforcing-consumer-protection-laws_en"
+  },
+  {
+    "id": "JP-001",
+    "market": "japan",
+    "category": "颜色禁忌",
+    "rule": "白色和黑色包装在日本关联丧事，喜庆场合应避免作为主色调",
+    "severity": "高",
+    "source": "日本文化惯例",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "JP-002",
+    "market": "japan",
+    "category": "数字禁忌",
+    "rule": "避免使用数字4（谐音死）和9（谐音苦），高端礼品包装需注意",
+    "severity": "高",
+    "source": "日本文化惯例",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "JP-003",
+    "market": "japan",
+    "category": "包装要求",
+    "rule": "日本市场产品标签必须包含日文品名、制造商地址、生产日期及保质期",
+    "severity": "高",
+    "source": "日本消费者厅JCAA",
+    "source_level": "B",
+    "source_url": "https://www.caa.go.jp"
+  },
+  {
+    "id": "JP-004",
+    "market": "japan",
+    "category": "颜色禁忌",
+    "rule": "紫色在部分传统场合关联宗教祭祀，日常消费品慎用大面积紫色",
+    "severity": "中",
+    "source": "日本色彩文化研究",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "JP-005",
+    "market": "japan",
+    "category": "其他",
+    "rule": "日本市场对赠品需明确标注非卖品标识，且不得与主商品捆绑销售产生误导",
+    "severity": "中",
+    "source": "日本公正交易委员会JFTC",
+    "source_level": "A",
+    "source_url": "https://www.jftc.go.jp"
+  },
+  {
+    "id": "SE-001",
+    "market": "southeast_asia",
+    "category": "宗教符号",
+    "rule": "泰国等佛教国家严禁在鞋类商品上使用佛像图案亵渎神灵严重冒犯",
+    "severity": "极高",
+    "source": "泰国文化部民俗保护局",
+    "source_level": "A",
+    "source_url": "https://www.m-culture.go.th"
+  },
+  {
+    "id": "SE-002",
+    "market": "southeast_asia",
+    "category": "宗教符号",
+    "rule": "马来西亚禁止将伊斯兰教相关文字和符号用于非宗教商业用途",
+    "severity": "极高",
+    "source": "马来西亚JAKIM伊斯兰发展部",
+    "source_level": "A",
+    "source_url": "https://wwwjakim.gov.my"
+  },
+  {
+    "id": "SE-003",
+    "market": "southeast_asia",
+    "category": "手势",
+    "rule": "柬埔寨缅甸文化中用脚指人或递物属严重不敬广告中需规避脚底朝上镜头",
+    "severity": "高",
+    "source": "东南亚文化研究文献",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "SE-004",
+    "market": "southeast_asia",
+    "category": "宗教符号",
+    "rule": "印尼巴厘岛等地区寺庙周边区域严格限制商业广告特别是酒类等产品",
+    "severity": "高",
+    "source": "印尼旅游交通部",
+    "source_level": "B",
+    "source_url": "https://indonesia.travel"
+  },
+  {
+    "id": "SE-005",
+    "market": "southeast_asia",
+    "category": "颜色禁忌",
+    "rule": "缅甸传统上白色用于丧事喜庆活动应避免白色为主色调",
+    "severity": "中",
+    "source": "东南亚文化惯例研究",
+    "source_level": "D",
+    "source_url": ""
+  }
+]
