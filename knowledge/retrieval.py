@@ -373,6 +373,13 @@ def build_rule_context(
     )
 
 
+def get_rules_by_market(market: str, category: str | None = None) -> list[dict]:
+    """获取指定市场的全部规则（兼容 rule_retriever 简易 API）。"""
+    retriever = get_retriever()
+    categories = [category] if category else None
+    return [rule.to_dict() for rule in retriever.filter_by_market(market, categories)]
+
+
 def _demo() -> None:
     retriever = RuleRetriever()
     print(f"已加载规则：{len(retriever.rules)} 条")
