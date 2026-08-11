@@ -132,5 +132,5 @@ with col_right:
 st.divider()
 st.markdown(
     "GitHub: [xuehualiange/sailmirror](https://github.com/xuehualiange/sailmirror) · "
-    "在线 Demo: [GitHub Pages](https://xuehualiange.github.io/sailmirror/)"
+    "在线 Demo: [Railway 部署版](https://sailmirror-production.up.railway.app/)"
 )

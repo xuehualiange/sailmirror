@@ -17,7 +17,7 @@
 
 ## 在线 Demo
 
-👉 **https://xuehualiange.github.io/sailmirror/**
+👉 **https://sailmirror-production.up.railway.app/**
 
 上传商品图、选择目标市场，体验完整检测流程与双轨报告 UI。
 
