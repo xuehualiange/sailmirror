@@ -18,7 +18,7 @@
 | 1 | 项目名称 | 出海镜（SailMirror） |
 | 2 | 一句话介绍 | AI 驱动的跨境商品"硬合规 + 文化合规"双轨检测系统，让每一件出海商品都能安全通过文化与法规的双重审查。 |
 | 3 | 产品原型 GitHub 链接 | https://github.com/xuehualiange/sailmirror |
-| 4 | 产品原型可运行链接 | https://xuehualiange.github.io/sailmirror/ |
+| 4 | 产品原型可运行链接 | https://sailmirror-production.up.railway.app/ |
 | 5 | 演示视频链接 | [视频预计 8.15 上传至 Bilibili/YouTube，此处为占位] |
 | 6 | 模型名称与架构 | 视觉检测 Agent：通义千问 Qwen3-VL-Plus；文本/推理 Agent：通义千问 Qwen3-Max；多 Agent 协作架构 |
 | 7 | 参赛赛道 | AI + 跨境电商 |
@@ -348,7 +348,7 @@
 
 - [x] Idea 文档（本文档）
 - [x] 产品原型 GitHub 仓库：https://github.com/xuehualiange/sailmirror
-- [x] 前端 Demo 页面：https://xuehualiange.github.io/sailmirror/
+- [x] 前端 Demo 页面：https://sailmirror-production.up.railway.app/
 - [ ] 演示视频（预计 8.15 上传）
 - [x] 规则库（60 条，knowledge/culture_rules_v1.json）
 - [x] 测试集（10 张图 + batch_test.py）
