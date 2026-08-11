@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>跨规雷达 CompliScan - AI 跨境合规检测</title>
+    <title>出海镜 SailMirror - AI 跨境合规检测</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -292,7 +292,7 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🛡️ 跨规雷达 CompliScan</h1>
+            <h1>🚀 出海镜 SailMirror</h1>
             <p>AI 跨境合规检测 · 硬合规 + 文化合规双轨报告</p>
         </div>
 
@@ -319,6 +319,7 @@
                     <div class="market-chip" data-market="us">🇺🇸 美国</div>
                     <div class="market-chip" data-market="eu">🇪🇺 欧盟</div>
                     <div class="market-chip" data-market="me">🇸🇦 中东</div>
+                    <div class="market-chip" data-market="japan">🇯🇵 日本</div>
                     <div class="market-chip" data-market="sea">🇸🇬 东南亚</div>
                     <div class="market-chip" data-market="latam">🇧🇷 拉美</div>
                 </div>
@@ -419,7 +420,7 @@
         // State
         let selectedMarkets = [];
         let uploadedImage = null;
-        const marketNames = { us: '美国', eu: '欧盟', me: '中东', sea: '东南亚', latam: '拉美' };
+        const marketNames = { us: '美国', eu: '欧盟', me: '中东', japan: '日本', sea: '东南亚', latam: '拉美' };
 
         // DOM Elements
         const uploadZone = document.getElementById('uploadZone');
@@ -527,6 +528,7 @@
             const hasME = selectedMarkets.includes('me');
             const hasUS = selectedMarkets.includes('us');
             const hasEU = selectedMarkets.includes('eu');
+            const hasJapan = selectedMarkets.includes('japan');
             const hasSEA = selectedMarkets.includes('sea');
 
             const hardRisks = [];
@@ -553,6 +555,26 @@
                     source: '平台政策 / 行业共识',
                     grade: 'C',
                     gradeClass: 'grade-c'
+                });
+            }
+            if (hasJapan) {
+                cultureRisks.push({
+                    level: 'high',
+                    label: '高风险',
+                    title: '白黑配色包装：丧事关联色',
+                    desc: '纯白盒体搭配黑色底纹，在日本文化中易联想丧礼场景，礼品类商品建议改用红、金等喜庆配色。',
+                    source: '日本文化惯例 / 行业共识',
+                    grade: 'D',
+                    gradeClass: 'grade-d'
+                });
+                cultureRisks.push({
+                    level: 'high',
+                    label: '高风险',
+                    title: '数字「4」 prominently 展示',
+                    desc: '数字 4 在日语中谐音「死」，出现在价格、编号或主视觉位置可能引发消费者反感。',
+                    source: '日本数字禁忌 / 行业共识',
+                    grade: 'D',
+                    gradeClass: 'grade-d'
                 });
             }
             
@@ -634,6 +656,10 @@
                 checklist.push(['泰国 FDA 注册', '食品/化妆品须完成注册', 'unclear']);
                 checklist.push(['新加坡 HSA 申报', '医疗器械/药品类须申报', 'unclear']);
             }
+            if (hasJapan) {
+                checklist.push(['PSE 认证', '电子电器类须符合日本 PSE 安全标准', 'unclear']);
+                checklist.push(['日语标签', '商品须含完整日语成分与使用说明', 'miss']);
+            }
 
             const tbody = document.getElementById('checklistBody');
             tbody.innerHTML = checklist.map(([item, req, status]) => {
@@ -656,10 +682,12 @@
                 <div class="fix-item">❌ "100% Effective" → ✅ "Clinically Tested Formula"</div>
                 ${hasME ? '<div class="fix-item">🌐 建议补充阿拉伯语成分说明（可联系本地翻译服务商）</div>' : ''}
                 ${hasEU ? '<div class="fix-item">📋 在 Listing 底部添加欧盟责任人名称、地址与电子邮箱</div>' : ''}
+                ${hasJapan ? '<div class="fix-item">🔢 避免在价格/编号中使用数字「4」，可改用「3+1」等替代表述</div>' : ''}
             `;
 
             document.getElementById('imageFixes').innerHTML = `
                 ${hasME ? '<div class="fix-item">🎨 对图中六角星背景图案进行局部重绘，替换为中性几何纹理（wanx2.1-imageedit）</div>' : ''}
+                ${hasJapan ? '<div class="fix-item">🎨 将白黑包装改为红金或暖色系，避免丧事联想（wanx2.1-imageedit）</div>' : ''}
                 <div class="fix-item">📐 若保留原图，建议裁剪避开风险区域并添加装饰性遮罩</div>
                 <div class="fix-item" style="color: #0284c7; font-weight: 600;">
                     💡 点击「AI 一键整改」可自动生成本地化合规替代图（异步处理，约 15-30s）
