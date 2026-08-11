@@ -5,6 +5,7 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import contextmanager
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -855,6 +856,7 @@ def generate_report(
     listing_text: str = "",
     *,
     image_file: Path | None = None,
+    quiet: bool = False,
 ) -> dict:
     """生成双轨报告"""
     tracker = get_perf_tracker()
@@ -892,76 +894,123 @@ def generate_report(
     }
 
     with tracker.measure("report.output"):
-        print("\n" + "=" * 50)
-        print("🚀 出海镜 · 双轨合规检测报告")
-        print(f"⏱️ 并行耗时：{elapsed:.1f}s / 目标 ≤{TARGET_SECONDS}s")
-        if perf_detail.get("culture"):
-            c = perf_detail["culture"]
-            print(
-                f"   · 文化Agent：{c.get('agent_total', 0):.2f}s "
-                f"(RAG {c.get('rag', 0):.2f}s + AI {c.get('ai', 0):.2f}s)"
-            )
-        if perf_detail.get("hard"):
-            h = perf_detail["hard"]
-            print(
-                f"   · 硬合规Agent：{h.get('agent_total', 0):.2f}s "
-                f"(RAG {h.get('rag', 0):.2f}s + AI {h.get('ai', 0):.2f}s)"
-            )
-        print("=" * 50)
+        if not quiet:
+            print("\n" + "=" * 50)
+            print("🚀 出海镜 · 双轨合规检测报告")
+            print(f"⏱️ 并行耗时：{elapsed:.1f}s / 目标 ≤{TARGET_SECONDS}s")
+            if perf_detail.get("culture"):
+                c = perf_detail["culture"]
+                print(
+                    f"   · 文化Agent：{c.get('agent_total', 0):.2f}s "
+                    f"(RAG {c.get('rag', 0):.2f}s + AI {c.get('ai', 0):.2f}s)"
+                )
+            if perf_detail.get("hard"):
+                h = perf_detail["hard"]
+                print(
+                    f"   · 硬合规Agent：{h.get('agent_total', 0):.2f}s "
+                    f"(RAG {h.get('rag', 0):.2f}s + AI {h.get('ai', 0):.2f}s)"
+                )
+            print("=" * 50)
 
-        if culture.get("error"):
-            print("\n🌍 文化合规：检测失败 ❌")
-            print(f"     {culture.get('error')}")
-            if culture.get("raw"):
-                print(f"     原始返回：{culture.get('raw')}")
-        else:
-            risks = culture.get("risks", [])
-            if risks:
-                print(f"\n🌍 文化合规：发现 {len(risks)} 个风险")
-                for r in risks:
-                    emoji = {"极高": "🔴", "高": "🟠", "中": "🟡", "低": "🟢"}.get(
-                        r.get("severity", ""), "⚪"
-                    )
-                    rule_id = r.get("rule_id", "")
-                    rule_hint = f" [{rule_id}]" if rule_id else ""
-                    print(f"  {emoji} {r.get('element', '')} - {r.get('severity', '')}{rule_hint}")
-                    print(f"     {r.get('reason', '')}")
+            if culture.get("error"):
+                print("\n🌍 文化合规：检测失败 ❌")
+                print(f"     {culture.get('error')}")
+                if culture.get("raw"):
+                    print(f"     原始返回：{culture.get('raw')}")
             else:
-                print("\n🌍 文化合规：无风险 ✅")
-
-            retrieved = culture.get("retrieved_rules", [])
-            if retrieved:
-                ids = ", ".join(item["id"] for item in retrieved[:5])
-                print(f"     参考规则：{ids}")
-
-        if hard:
-            if hard.get("error"):
-                print("\n⚠️ 硬合规：检测失败 ❌")
-                print(f"     {hard.get('error')}")
-                if hard.get("raw"):
-                    print(f"     原始返回：{hard.get('raw')}")
-            else:
-                vios = hard.get("violations", [])
-                if vios:
-                    print(f"\n⚠️ 硬合规：发现 {len(vios)} 个问题")
-                    for v in vios:
-                        rule_id = v.get("rule_id", "")
+                risks = culture.get("risks", [])
+                if risks:
+                    print(f"\n🌍 文化合规：发现 {len(risks)} 个风险")
+                    for r in risks:
+                        emoji = {"极高": "🔴", "高": "🟠", "中": "🟡", "低": "🟢"}.get(
+                            r.get("severity", ""), "⚪"
+                        )
+                        rule_id = r.get("rule_id", "")
                         rule_hint = f" [{rule_id}]" if rule_id else ""
-                        print(f"  🟠 {v.get('content', '')} - {v.get('severity', '')}{rule_hint}")
-                        if v.get("suggestion"):
-                            print(f"     建议：{v.get('suggestion')}")
+                        print(f"  {emoji} {r.get('element', '')} - {r.get('severity', '')}{rule_hint}")
+                        print(f"     {r.get('reason', '')}")
                 else:
-                    print("\n⚠️ 硬合规：无问题 ✅")
+                    print("\n🌍 文化合规：无风险 ✅")
 
-            retrieved = hard.get("retrieved_rules", [])
-            if retrieved:
-                ids = ", ".join(item["id"] for item in retrieved[:5])
-                print(f"     参考规则：{ids}")
+                retrieved = culture.get("retrieved_rules", [])
+                if retrieved:
+                    ids = ", ".join(item["id"] for item in retrieved[:5])
+                    print(f"     参考规则：{ids}")
 
-        print("\n" + "=" * 50)
+            if hard:
+                if hard.get("error"):
+                    print("\n⚠️ 硬合规：检测失败 ❌")
+                    print(f"     {hard.get('error')}")
+                    if hard.get("raw"):
+                        print(f"     原始返回：{hard.get('raw')}")
+                else:
+                    vios = hard.get("violations", [])
+                    if vios:
+                        print(f"\n⚠️ 硬合规：发现 {len(vios)} 个问题")
+                        for v in vios:
+                            rule_id = v.get("rule_id", "")
+                            rule_hint = f" [{rule_id}]" if rule_id else ""
+                            print(f"  🟠 {v.get('content', '')} - {v.get('severity', '')}{rule_hint}")
+                            if v.get("suggestion"):
+                                print(f"     建议：{v.get('suggestion')}")
+                    else:
+                        print("\n⚠️ 硬合规：无问题 ✅")
+
+                retrieved = hard.get("retrieved_rules", [])
+                if retrieved:
+                    ids = ", ".join(item["id"] for item in retrieved[:5])
+                    print(f"     参考规则：{ids}")
+
+            print("\n" + "=" * 50)
 
     tracker.mark_success()
     return report
+
+
+@dataclass
+class ComplianceConfig:
+    quiet: bool = True
+    preload_rules: bool = True
+
+
+class ComplianceChecker:
+    """双轨合规检测器，供 CLI / API / Streamlit 调用。"""
+
+    def __init__(self, config: ComplianceConfig | None = None):
+        self.config = config or ComplianceConfig()
+
+    def check(
+        self,
+        image_path: str,
+        market: str,
+        listing_text: str | None = None,
+    ) -> dict:
+        listing_text = listing_text or ""
+        tracker = reset_perf_tracker()
+        tracker.set_metadata(
+            image=Path(image_path).name,
+            market=market,
+            has_listing=bool(listing_text.strip()),
+        )
+
+        try:
+            market = validate_market(market)
+            ensure_api_key()
+            if self.config.preload_rules:
+                preload_rule_index()
+            image_file = cache_validated_image(image_path)
+            return generate_report(
+                image_path,
+                market,
+                listing_text,
+                image_file=image_file,
+                quiet=self.config.quiet,
+            )
+        except Exception as exc:
+            tracker.mark_failed(str(exc))
+            raise
+        finally:
+            tracker.finalize_and_write()
 
 
 def print_usage() -> None:
