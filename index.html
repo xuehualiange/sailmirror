@@ -321,7 +321,8 @@
                     <div class="market-chip" data-market="me">🇸🇦 中东</div>
                     <div class="market-chip" data-market="japan">🇯🇵 日本</div>
                     <div class="market-chip" data-market="sea">🇸🇬 东南亚</div>
-                    <div class="market-chip" data-market="latam">🇧🇷 拉美</div>
+                    <div class="market-chip" data-market="korea">🇰🇷 韩国</div>
+                    <div class="market-chip" data-market="india">🇮🇳 印度</div>
                 </div>
             </div>
 
@@ -420,13 +421,15 @@
         // State
         let selectedMarkets = [];
         let uploadedImage = null;
-        const marketNames = { us: '美国', eu: '欧盟', me: '中东', japan: '日本', sea: '东南亚', latam: '拉美' };
+        const marketNames = { us: '美国', eu: '欧盟', me: '中东', japan: '日本', sea: '东南亚', korea: '韩国', india: '印度' };
         const marketApiCodes = {
             us: 'us',
             eu: 'eu',
             me: 'middle_east',
             japan: 'japan',
             sea: 'southeast_asia',
+            korea: 'korea',
+            india: 'india',
         };
 
         const scanSteps = [

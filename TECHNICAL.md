@@ -30,7 +30,7 @@ README 原始描述：
 - 多 Agent 协同 + 阿里云百炼
 - `qwen3-vl-plus`：视觉理解
 - `qwen3.7-max`：推理与报告生成
-- Streamlit：前端展示（**规划中**；当前主入口为 CLI `main.py`，另有静态原型 `index.html`）
+- Streamlit：前端展示（未实现；当前为 Flask API + 原生 HTML 前端，CLI `main.py` 仍可用）
 
 **当前已实现架构：**
 
@@ -69,16 +69,18 @@ README 原始描述：
 ```
 sailmirror-main/
 ├── main.py                 # 主程序：双 Agent 并行检测、RAG 集成、性能日志
+├── api_server.py           # Flask API 服务：/detect 路由 + index.html 托管
 ├── knowledge/
 │   ├── retrieval.py        # 规则库 RAG 检索模块
-│   └── culture_rules_v1.json  # 文化/硬合规规则库（60 条）
+│   └── culture_rules_v1.json  # 文化/硬合规规则库（70 条，含韩国/印度）
 ├── convert_rules.py        # Excel 规则库 → JSON 转换工具
 ├── test_vl.py              # 单图视觉检测测试脚本
 ├── batch_test.py           # 10 张测试图批量文化合规检测
-├── index.html              # 前端 UI 原型（静态 Demo，未接后端）
+├── index.html              # 前端单页应用（通过 api_server.py 提供后端）
 ├── performance.log         # 运行时性能日志（自动生成）
 ├── requirements.txt        # Python 依赖
-└── README.md               # 项目说明
+├── README.md               # 项目说明
+└── TECHNICAL.md            # 本文档
 ```
 
 ---
@@ -155,6 +157,8 @@ python knowledge/retrieval.py middle_east "女性 宗教 绿色"
 | `us` | 美国 |
 | `eu` | 欧盟 |
 | `southeast_asia` | 东南亚 |
+| `korea` | 韩国（KC 认证、绝对化用语、数字 4、白色包装） |
+| `india` | 印度（印度教神灵符号、牛肉制品、左手冒犯、BIS 认证） |
 
 ### 4.3 异常类（代码注释）
 
@@ -315,6 +319,20 @@ python knowledge/retrieval.py middle_east "女性暴露 宗教符号 绿色"
 
 ## 6. 辅助脚本
 
+### 6.0 api_server.py（Web 服务入口）
+
+Flask + Flask-CORS，托管 `index.html` 并提供检测 API。
+
+| 路由 | 方法 | 说明 |
+|------|------|------|
+| `/` | GET | 返回前端单页应用 `index.html` |
+| `/detect` | POST | multipart/form-data：`image`（商品图文件，必填）、`market`（市场代码，必填）、`listing`（Listing 文案，可选）；返回双轨检测 JSON（结构同 main.py 报告） |
+| `/knowledge/culture_rules_v1.json` | GET | 返回规则库 JSON |
+
+- 临时图片保存为 `temp_upload.jpg`，请求结束自动删除
+- 端口由环境变量 `PORT` 决定，默认 `8080`
+- 本地运行：`python api_server.py`；Railway 部署时由平台注入 `PORT`
+
 ### 6.1 convert_rules.py
 
 将 Excel 文件 `规则库填写.xlsx` 转换为 `knowledge/culture_rules_v1.json`。
@@ -348,10 +366,10 @@ test_cases = [
 
 ### 6.4 index.html
 
-静态前端原型「跨规雷达 CompliScan」。
+前端单页应用「跨规雷达 CompliScan」，通过 `api_server.py` 对接真实后端。
 
-- 功能：上传商品图、Listing 输入、市场选择、双轨报告展示
-- 技术：纯 HTML/CSS/JS，**结果为前端 Mock 数据，未连接 Python 后端**
+- 功能：上传商品图、市场选择（美国/欧盟/中东/日本/东南亚/韩国/印度）、Listing 输入、双轨报告展示
+- 技术：纯 HTML/CSS/JS，检测结果来自 `POST /detect` 真实 API 响应
 - JS 注释分区：`State` / `DOM Elements` / `Event Listeners` / `Functions`
 
 ---
@@ -405,9 +423,9 @@ Generation.call(
 
 当前文件：`knowledge/culture_rules_v1.json`
 
-- 规则总数：**60 条**
-- 覆盖市场：`middle_east`、`japan`、`us`、`eu`、`southeast_asia`
-- 类别示例：人物着装、宗教符号、饮食禁忌、颜色禁忌、广告法、认证要求等
+- 规则总数：**70 条**
+- 覆盖市场：`middle_east`（20）、`us`（20）、`eu`（10）、`japan`（5）、`southeast_asia`（5）、`korea`（5）、`india`（5）
+- 类别示例：人物着装、宗教符号、饮食禁忌、颜色禁忌、广告法、认证要求、数据隐私、数字禁忌、文化习俗等
 
 ---
 
@@ -415,7 +433,7 @@ Generation.call(
 
 | README 描述 | 当前实现 |
 |-------------|----------|
-| Streamlit 前端 | 未实现；CLI + `index.html` 静态原型 |
+| Streamlit 前端 | 未实现；Flask API（api_server.py）+ `index.html` 前端 |
 | `.env.example` | 需手动创建 `.env` |
 | 多 Agent 协同 | ✅ 双 Agent 线程池并行 |
 | RAG 规则库 | ✅ `knowledge/retrieval.py` |

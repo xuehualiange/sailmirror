@@ -9,7 +9,7 @@
 ## 核心亮点
 
 - **10/10 测试用例全部命中** — 覆盖中东、美国、日本、东南亚等典型文化禁忌与硬合规场景，批量检测 100% 命中
-- **60 条规则库，覆盖 5 大市场** — 中东 20 + 美国 20 + 欧盟 10 + 日本 5 + 东南亚 5，结构化入库，支持 RAG 检索
+- **70 条规则库，覆盖 7 大市场** — 中东 20 + 美国 20 + 欧盟 10 + 日本 5 + 东南亚 5 + 韩国 5 + 印度 5，结构化入库，支持 RAG 检索
 - **多 Agent 架构** — Qwen3-VL-Plus 负责视觉文化合规，Qwen3-Max 负责文案硬合规，并行检测、结果聚合
 - **规则可溯源** — 每条判定标注 A/B/C/D 来源分级（官方法规 / 平台政策 / 行业案例 / 文化惯例），不是黑盒结论
 
@@ -49,7 +49,15 @@ python main.py TC-001.jpg middle_east
 python main.py TC-004.jpg us "Best Bluetooth Headphones #1 Quality"
 ```
 
-**市场代码：** `middle_east` / `japan` / `us` / `eu` / `southeast_asia`
+**市场代码：** `middle_east` / `japan` / `us` / `eu` / `southeast_asia` / `korea` / `india`
+
+### 4. 启动 Web 服务（api_server.py）
+
+```bash
+python api_server.py
+```
+
+浏览器访问 `http://localhost:8080/`，上传商品图、选择目标市场、粘贴 Listing（可选），即可体验完整双轨检测流程。API 接口：`POST /detect`（multipart/form-data：`image` 文件 + `market` 参数 + 可选 `listing` 文案）。
 
 ### 4. 批量测试（10 张用例）
 
@@ -66,9 +74,10 @@ python batch_test.py
 | 语言 | Python 3.12 |
 | 视觉模型 | 阿里云百炼 Qwen3-VL-Plus |
 | 文本模型 | 阿里云百炼 Qwen3-Max |
-| 规则库 | JSON + RAG 检索（`knowledge/culture_rules_v1.json`） |
-| 前端 | HTML Demo / Streamlit（规划中） |
-| 云平台 | 阿里云百炼 DashScope API |
+| 规则库 | JSON + RAG 检索（`knowledge/culture_rules_v1.json`，70 条规则） |
+| 前端 | 原生 HTML/CSS/JS 单页应用（`index.html`，双栏报告可视化） |
+| API 服务 | Flask + Flask-CORS（`api_server.py`） |
+| 云平台 | 阿里云百炼 DashScope API；Railway 云托管 |
 
 ---
 
@@ -77,11 +86,13 @@ python batch_test.py
 ```
 sailmirror/
 ├── main.py              # 双 Agent 主流程（文化 + 硬合规）
+├── api_server.py        # Flask API 服务 + 前端托管（/detect 路由）
 ├── batch_test.py        # 10 张测试图批量检测
 ├── convert_rules.py     # Excel 规则库 → JSON 转换
-├── knowledge/           # 60 条结构化规则库
-├── index.html           # 前端 Demo 页面
-└── TC-001~010.jpg       # 测试用例图片
+├── knowledge/           # 70 条结构化规则库 + RAG 检索模块
+├── index.html           # 前端单页应用（双栏报告）
+├── TC-001~010.jpg       # 测试用例图片
+└── TECHNICAL.md         # 技术架构详细说明
 ```
 
 ---

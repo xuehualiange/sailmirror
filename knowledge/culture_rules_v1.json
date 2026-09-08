@@ -598,5 +598,105 @@
     "source": "东南亚文化惯例研究",
     "source_level": "D",
     "source_url": ""
+  },
+  {
+    "id": "KR-001",
+    "market": "korea",
+    "category": "认证要求",
+    "rule": "出口韩国电子电器产品必须通过KC安全认证并在产品及包装上标注KC标志，否则海关扣押",
+    "severity": "极高",
+    "source": "韩国技术标准院KATS / KC认证制度",
+    "source_level": "A",
+    "source_url": "https://www.kats.go.kr"
+  },
+  {
+    "id": "KR-002",
+    "market": "korea",
+    "category": "广告法",
+    "rule": "韩国广告不得使用最高级、绝对化用语，如\"最棒/第一/100%\"，除非有客观数据支撑",
+    "severity": "高",
+    "source": "韩国公平交易委员会KFTC",
+    "source_level": "A",
+    "source_url": "https://www.ftc.go.kr"
+  },
+  {
+    "id": "KR-003",
+    "market": "korea",
+    "category": "数字禁忌",
+    "rule": "数字4在韩国文化中谐音\"死\"，礼品、楼层、车牌等编号场景应尽量避免使用",
+    "severity": "中",
+    "source": "韩国文化惯例",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "KR-004",
+    "market": "korea",
+    "category": "颜色禁忌",
+    "rule": "白色在韩国传统中与丧事关联，喜庆商品包装及节庆促销应避免纯白为主色调",
+    "severity": "中",
+    "source": "韩国色彩文化研究",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "KR-005",
+    "market": "korea",
+    "category": "数据隐私",
+    "rule": "面向韩国用户收集个人信息须符合PIPA法案，必须获得用户明示同意并提供隐私政策",
+    "severity": "极高",
+    "source": "韩国个人信息保护委员会PIPC",
+    "source_level": "A",
+    "source_url": "https://www.pipc.go.kr"
+  },
+  {
+    "id": "IN-001",
+    "market": "india",
+    "category": "宗教符号",
+    "rule": "商品广告及包装严禁使用印度教神灵形象（象神、湿婆、毗湿奴等）用于商业促销，属严重亵渎",
+    "severity": "极高",
+    "source": "印度文化部 / 各邦宗教保护法",
+    "source_level": "A",
+    "source_url": "https://www.indiaculture.gov.in"
+  },
+  {
+    "id": "IN-002",
+    "market": "india",
+    "category": "宗教符号",
+    "rule": "牛肉及牛皮制品在印度教核心地区（北方邦、中央邦等）禁止销售和推广，违者面临刑事起诉",
+    "severity": "极高",
+    "source": "印度各邦反屠宰法 / 宗教事务部",
+    "source_level": "A",
+    "source_url": "https://www.indiaculture.gov.in"
+  },
+  {
+    "id": "IN-003",
+    "market": "india",
+    "category": "文化习俗",
+    "rule": "广告画面中出现左手递物、左手进食或使用左手示意的场景属文化冒犯，应使用右手",
+    "severity": "高",
+    "source": "印度文化惯例",
+    "source_level": "D",
+    "source_url": ""
+  },
+  {
+    "id": "IN-004",
+    "market": "india",
+    "category": "认证要求",
+    "rule": "进口印度商品须通过BIS强制性认证，电子产品需取得ISI标志，未认证商品不得清关销售",
+    "severity": "极高",
+    "source": "印度标准局BIS",
+    "source_level": "A",
+    "source_url": "https://www.bis.gov.in"
+  },
+  {
+    "id": "IN-005",
+    "market": "india",
+    "category": "广告法",
+    "rule": "印度广告不得使用国家级/最高级用语，医疗及保健品功效宣称须经Ayush部审批",
+    "severity": "高",
+    "source": "印度广告标准委员会ASCI / Ayush部",
+    "source_level": "B",
+    "source_url": "https://www.ascionline.org"
   }
 ]

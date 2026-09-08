@@ -43,6 +43,8 @@ VALID_MARKETS = {
     "us": "美国：检测绝对化用语Best/#1/100%、FDA/FCC认证",
     "eu": "欧盟：检测CE认证、环保标识",
     "southeast_asia": "东南亚：检测佛像、脚部朝向、宗教符号",
+    "korea": "韩国：检测KC认证、绝对化用语、数字4、白色包装",
+    "india": "印度：检测印度教神灵符号、牛肉制品、左手冒犯、BIS认证",
 }
 
 CULTURE_QUERY_HINTS = {
@@ -51,6 +53,8 @@ CULTURE_QUERY_HINTS = {
     "us": "广告法 绝对化用语 认证要求 Best FDA FCC",
     "eu": "CE认证 环保标识 GPSR 认证要求 标签",
     "southeast_asia": "宗教符号 佛像 手势 OK手势 脚部朝向 文化习俗",
+    "korea": "颜色禁忌 白色 数字4 认证要求 文化习俗 丧事",
+    "india": "宗教符号 印度教 神灵 牛肉 手势 左手 文化习俗",
 }
 
 HARD_QUERY_HINTS = {
@@ -59,6 +63,8 @@ HARD_QUERY_HINTS = {
     "us": "广告法 绝对化用语 FDA FCC CPSIA FTC 认证",
     "eu": "CE GPSR 广告法 环保 标签 认证",
     "southeast_asia": "广告法 标签 认证 FDA 清真",
+    "korea": "广告法 标签 认证 KC 绝对化用语 PIPA",
+    "india": "广告法 标签 认证 BIS ISI Ayush",
 }
 
 RETRYABLE_API_CODES = {
@@ -1016,7 +1022,7 @@ class ComplianceChecker:
 def print_usage() -> None:
     print("用法：python main.py <图片路径> <目标市场> [Listing文案]")
     print("示例：python main.py TC-001.jpg middle_east \"Best product ever\"")
-    print("市场代码：middle_east / japan / us / eu / southeast_asia")
+    print("市场代码：middle_east / japan / us / eu / southeast_asia / korea / india")
 
 
 def main() -> None:
