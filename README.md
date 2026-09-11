@@ -17,7 +17,7 @@
 
 ## 在线 Demo
 
-👉 **https://sailmirror-production.up.railway.app/**
+👉 **https://aqjprjhghzla.cloud.sealos.io/**
 
 上传商品图、选择目标市场，体验完整检测流程与双轨报告 UI。
 
@@ -77,7 +77,7 @@ python batch_test.py
 | 规则库 | JSON + RAG 检索（`knowledge/culture_rules_v1.json`，70 条规则） |
 | 前端 | 原生 HTML/CSS/JS 单页应用（`index.html`，双栏报告可视化） |
 | API 服务 | Flask + Flask-CORS（`api_server.py`） |
-| 云平台 | 阿里云百炼 DashScope API；Railway 云托管 |
+| 云平台 | 阿里云百炼 DashScope API；Sealos 云托管（容器化部署） |
 
 ---
 
